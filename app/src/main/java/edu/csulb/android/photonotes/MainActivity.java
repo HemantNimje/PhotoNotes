@@ -1,6 +1,10 @@
 package edu.csulb.android.photonotes;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_uninstall){
+            String packageName = getApplicationContext().getPackageName();
+            Uri packageUri = Uri.parse("package:" + packageName);
+            Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE,packageUri);
+            startActivity(uninstallIntent);
         }
 
         return super.onOptionsItemSelected(item);
