@@ -4,7 +4,9 @@
 
     <string name="uninstall">Uninstall</string>
     <string name="photo_caption_hint">Name your picture</string>
-    <string name="image_description">Photo</string>
+    <string name="add_image_description">Add Photo</string>
     <string name="add_button">Add</string>
     <string name="save_button">Save</string>
+    <string name="view_image_description">View Photo</string>
+    <string name="textView_photo_caption">Photo Caption</string>
 </resources>
