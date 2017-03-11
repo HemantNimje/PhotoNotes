@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         listView = (ListView) findViewById(R.id.listView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,7 +50,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                // Find the clicked view
+                TextView caption = (TextView) view;
+
+                //Toast.makeText(getApplicationContext(), "Clicked: " + textView.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                // Create intent to call the ViewPhotoActivity
+                Intent photoDetailsIntent = new Intent(getApplicationContext(), ViewPhotoActivity.class);
+                photoDetailsIntent.putExtra("caption", caption.getText().toString());
+                startActivity(photoDetailsIntent);
+            }
+        });
 
     }
 

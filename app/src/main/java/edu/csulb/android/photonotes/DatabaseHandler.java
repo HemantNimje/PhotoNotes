@@ -89,16 +89,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getPhotoFilePath(String caption) {
 
-        String photoFilePath;
+        String photoFilePath = null;
 
         // Select Query to get the file path for the caption
-        String selectQuety = "SELECT * FROM " + TABLE_LABELS + "WHERE" + KEY_CAPTION
+        String selectQuety = "SELECT * FROM " + TABLE_LABELS + " WHERE " + KEY_CAPTION
                 + " = " + "'" + caption + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuety,null);
+        Cursor cursor = db.rawQuery(selectQuety, null);
 
-        photoFilePath = cursor.getString(1);
+
+        // Looping through all rows and adding to the list
+        if (cursor.moveToFirst()) {
+            do {
+                photoFilePath = cursor.getString(1);
+            } while (cursor.moveToNext());
+        }
 
         // Closing connection
         cursor.close();

@@ -148,6 +148,7 @@ public class AddPhotoActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(textViewImageCaption.getWindowToken(), 0);
 
             Toast.makeText(this, "Data stored successfully", Toast.LENGTH_LONG).show();
+
             finish();
 
         } else {
