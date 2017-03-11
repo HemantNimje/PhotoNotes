@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/add_photo_image_caption"
+        android:id="@+id/image_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/photo_caption_hint"

@@ -1,5 +1,6 @@
 package edu.csulb.android.photonotes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,9 +12,13 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +49,7 @@ public class AddPhotoActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Add Button Clicked", Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(getApplicationContext(), "Add Button Clicked", Toast.LENGTH_LONG).show();
                 dispatchTakePictureIntent();
             }
         });
@@ -53,7 +57,9 @@ public class AddPhotoActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Save Button Clicked", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Save Button Clicked", Toast.LENGTH_LONG).show();
+
+                saveImageAndPath();
             }
         });
 
@@ -118,4 +124,35 @@ public class AddPhotoActivity extends AppCompatActivity {
         return image;
     }
 
+    public void saveImageAndPath() {
+        String imageCaption;
+        String imagePath;
+
+        TextView textViewImageCaption = (TextView) findViewById(R.id.image_caption);
+        imageCaption = textViewImageCaption.getText().toString();
+        imagePath = mCurrentPhotoPath;
+
+
+        if (imageCaption.trim().length() > 0 && imagePath != null) {
+            // Database Handler
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+            // Inserting new photo caption and path to database
+            db.insertPhoto(imageCaption, imagePath);
+
+            // Making input field text to blank
+            textViewImageCaption.setText("");
+
+            // Hiding the keyboard
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(textViewImageCaption.getWindowToken(), 0);
+
+            Toast.makeText(this, "Data stored successfully", Toast.LENGTH_LONG).show();
+            finish();
+
+        } else {
+            Toast.makeText(this, "Please enter name as well as capture image before saving", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
