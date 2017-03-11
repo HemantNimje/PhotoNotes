@@ -32,10 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        listView = (ListView) findViewById(R.id.listView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        listView = (ListView) findViewById(R.id.listView);
 
         /* Populate the listview */
 
@@ -57,10 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 // Find the clicked view
                 TextView caption = (TextView) view;
 
-                //Toast.makeText(getApplicationContext(), "Clicked: " + textView.getText().toString(), Toast.LENGTH_SHORT).show();
-
                 // Create intent to call the ViewPhotoActivity
-                Intent photoDetailsIntent = new Intent(getApplicationContext(), ViewPhotoActivity.class);
+                Intent photoDetailsIntent = new Intent(getApplicationContext(),
+                        ViewPhotoActivity.class);
                 photoDetailsIntent.putExtra("caption", caption.getText().toString());
                 startActivity(photoDetailsIntent);
             }
@@ -105,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         List<String> captions = db.getAllPhotoCaptions();
 
         // Creating adapter for listview
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, captions);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, captions);
 
         listView.setAdapter(dataAdapter);
     }

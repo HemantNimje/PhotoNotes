@@ -7,15 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Set;
 
 /**
  * Created by Hemant on 3/8/2017.
  */
 
 public class ViewPhotoActivity extends AppCompatActivity {
+    String photoCaption;
+    String photoFilePath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,17 +25,16 @@ public class ViewPhotoActivity extends AppCompatActivity {
         ImageView imageViewPhoto = (ImageView) findViewById(R.id.view_photo_image);
         TextView textViewPhotoCaption = (TextView) findViewById(R.id.view_photo_image_caption);
 
-        String photoCaption;
-        String photoFilePath;
-
+        // Get intent
         Intent intent = getIntent();
 
+        // Get the photo caption from intent and set it to textview
         photoCaption = intent.getStringExtra("caption");
         textViewPhotoCaption.setText(photoCaption);
 
+        // Get photo file path from the intent and set it to imageview
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         photoFilePath = db.getPhotoFilePath(photoCaption);
-        //Toast.makeText(this, "" + photoFilePath, Toast.LENGTH_SHORT).show();
 
         Bitmap imageBitmap = BitmapFactory.decodeFile(photoFilePath);
         imageViewPhoto.setImageBitmap(imageBitmap);

@@ -25,8 +25,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddPhotoActivity"></activity>
-        <activity android:name=".ViewPhotoActivity"></activity>
+        <!-- Add configChanges as orientation and screensize to handle the orientation change-->
+        <activity android:name=".AddPhotoActivity" android:configChanges="orientation|screenSize"/>
+
+        <activity android:name=".ViewPhotoActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -35,7 +37,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
 
